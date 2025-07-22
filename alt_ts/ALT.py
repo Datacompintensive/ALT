@@ -340,9 +340,6 @@ class ALT:
             raise RuntimeError("The model cannot be trained after loading, as the training data is not saved.")
         for rlk in self.RLK:
             self.Ps[rlk] = self._get_P(rlk)
-        # IMPORTANT
-        while True:
-            break
         if cleanup:
             del self.train_set
             del self.train_classes

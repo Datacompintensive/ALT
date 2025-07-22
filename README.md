@@ -2,35 +2,27 @@
 
 **Adaptive Law-Based Transformation (ALT)** is an open-source Python package developed for efficient and accurate time series classification (TSC). ALT leverages adaptive law-based transformations[[1]](#1) to convert raw time series data into a linearly separable feature space, using variable-length shifted time windows. This approach enhances its predecessor, the linear law-based transformation (LLT), by capturing patterns at varying temporal scales with greater precision. ALT achieves state-of-the-art performance in TSC tasks across physics and related domains, all while maintaining minimal computational overhead.
 
-## Repository Structure
-
-- **`ALT.py`**: The core implementation of the Adaptive Law-Based Transformation methodology.
-- **`GunPoint_example.ipynb`**: A Jupyter notebook providing a practical example of how to use the ALT package for time series classification. This includes loading data and running the transformation.
-- **`results/GunPoint_results.csv`**: Contains the results of running ALT on the [GunPoint](https://www.timeseriesclassification.com/description.php?Dataset=GunPoint) dataset[[2]](#2) as an example.
-- **`requirements.txt`**: Lists the required Python packages and dependencies needed to run the code.
-
 ## Installation
 
-1. Clone the repository:
+The package can be installed with pip using the following command:
    ```bash
-   git clone https://github.com/Datacompintensive/ALT.git
-   cd ALT
+   pip install git+https://github.com/Datacompintensive/ALT.git
    ```
 
-2. Create a virtual environment (optional but recommended):
-   ```bash
-   python -m venv env
-   source env/bin/activate  # On Windows: `env\Scripts\activate`
-   ```
-
-3. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+To obtain datasets adittional packages might be required. In the example the `aeon` packege is used which can be installed as:
+```bash
+pip install aeon
+``` 
 
 ## Usage
 
-We recommend familiarizing yourself with the provided example notebook, and modifying that to fit your datasets.
+We recommend familiarizing yourself with the provided example, and modifying that to fit your datasets.
+
+### Importing
+First the package has to be imported.
+```python
+import alt_ts
+```
 
 ### Loading data 
 
@@ -47,7 +39,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 To initialize ALT, at least you need to suply the data, and the classes of the instances.
 ```python
-alt = ALT(learn_set, learn_classes, R=R, L=L, K=K, device=device)
+alt = alt_ts.ALT(learn_set, learn_classes, R=R, L=L, K=K, device=device)
 ```
 
 The class labels should be numbers, preferably integers.
@@ -74,7 +66,7 @@ You can transfrom an instance, with the `transform` method, or a set of instance
 ```python
 transformed_set = alt.transform_set(transform_set, extr_methods=extr_methods,
                                     test_classes=transform_classes, 
-                                    save_file_name="results/results.csv", 
+                                    save_file_name="results.csv", 
                                     save_file_mode="New file")
 ```
 
